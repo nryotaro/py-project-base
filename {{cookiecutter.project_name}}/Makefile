@@ -1,5 +1,5 @@
 PACKAGE_NAME := {{cookiecutter.package_name}}
-BASE_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
+BASE_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/
 PYENV_FILE := $(BASE_DIR).python-version
 PYTHON_VERSION ?= {{ cookiecutter.python_version }}
 VENV ?= $(BASE_DIR)venv/
