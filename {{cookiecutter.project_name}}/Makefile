@@ -28,7 +28,7 @@ test: $(VENV)bin/pytest ## Run tests.
 	. $(VENV)bin/activate && \
 	pytest
 
-doc: $(VENV)bin/sphinx-build $(DOC_BUILD_DIR)conf.py $(DOC_BUILD_DIR)index.rst ## Generate docs.
+doc: $(BASE_DIR)docs/.nojekyll $(VENV)bin/sphinx-build $(DOC_BUILD_DIR)conf.py $(DOC_BUILD_DIR)index.rst ## Generate docs.
 	. $(VENV)bin/activate && \
 	sphinx-apidoc -M -f -o $(DOC_BUILD_DIR) $(PACKAGE_NAME) && \
 	rm -rf $(DOC_DIR)* && \
@@ -79,5 +79,9 @@ $(VENV)bin/activate: $(PYENV_FILE)
 $(PYENV_FILE):
 	cd $(BASE_DIR) && \
 	pyenv local $(PYTHON_VERSION)
+
+$(BASE_DIR)docs/.nojekyll:
+	mkdir -p $(BASE_DIR)docs
+	$(BASE_DIR)docs/.nojekyll
 
 .PHONY: help doc clean clean_test  clean_doc
