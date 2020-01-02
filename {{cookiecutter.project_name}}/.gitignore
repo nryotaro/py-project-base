@@ -4,3 +4,6 @@
 .DS_Store
 # Python
 *venv
+.python-version
+*.egg-info
+**/__pycache__
