@@ -1,5 +1,5 @@
 PACKAGE_NAME := {{cookiecutter.package_name}}
-BASE_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+BASE_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 PYENV_FILE := $(BASE_DIR).python-version
 PYTHON_VERSION ?= {{ cookiecutter.python_version }}
 VENV ?= $(BASE_DIR)venv/
@@ -12,7 +12,7 @@ REPOSITORY_URL := {{ cookiecutter.repository_url }}
 help: ## Display this help.
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n\nTargets:\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 
-publish: $(BUILD_DIR)setup.py $(VENV)bin/twine  ## Clone codes in the revision tagged with 'TAG' to local, build them, then publish them to the pip index server.
+publish: $(VENV)bin/activate $(BUILD_DIR)setup.py $(VENV)bin/twine  ## Clone codes in the revision tagged with 'TAG' to local, build them, then publish them to the pip index server.
 	cd $(BUILD_DIR) && \
 	git clean -fd && \
 	rm -rf {{ cookiecutter.package_name }}.egg-info dist build && \
