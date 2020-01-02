@@ -1,6 +1,7 @@
 {
     "project_name": "Project name",
     "package_name": "Package name",
-    "python_version": "The verision of Python to use in development.",
-    "author": "The author of this project."
+    "python_version": "The verision of Python to use in development",
+    "author": "The author of this project",
+    "repository_url": "The Git URL"
 }
