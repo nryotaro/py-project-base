@@ -1,7 +1,7 @@
 PACKAGE_NAME := {{cookiecutter.project_name}}
 BASE_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 PYENV_FILE := $(BASE_DIR).python-version
-PYTHON_VERSION ?= {{ cookiecutter.project_name }}
+PYTHON_VERSION ?= {{ cookiecutter.python_version }}
 TEST_VENV ?= $(BASE_DIR).test_venv/
 DOC_BUILD_DIR ?= $(BASE_DIR).doc_build/
 DOC_VENV ?= $(BASE_DIR).doc_venv/
