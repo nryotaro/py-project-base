@@ -1,4 +1,4 @@
-PACKAGE_NAME := {{cookiecutter.project_name}}
+PACKAGE_NAME := {{cookiecutter.package_name}}
 BASE_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 PYENV_FILE := $(BASE_DIR).python-version
 PYTHON_VERSION ?= {{ cookiecutter.python_version }}
