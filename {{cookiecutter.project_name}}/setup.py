@@ -13,4 +13,8 @@ setup(name='{{cookiecutter.project_name}}',
             'dev': [
                 'ipython',
                 'python-language-server[all]'
+                ],
+            'doc': [             
+                'sphinx',
+                'sphinx_rtd_theme'
                 ]})
