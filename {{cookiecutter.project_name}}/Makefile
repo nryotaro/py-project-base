@@ -5,7 +5,8 @@ PYTHON_VERSION ?= {{ cookiecutter.python_version }}
 TEST_VENV ?= $(BASE_DIR).test_venv/
 DOC_BUILD_DIR ?= $(BASE_DIR).doc_build/
 DOC_VENV ?= $(BASE_DIR).doc_venv/
-DOC_DIR ?= $(BASE_DIR)docs/
+PROJECT_VERSION = $(shell cd $(BASE_DIR) && python -c "import ast; f = open('setup.py'); txt = ast.parse(f.read());f.close();print([keyword.value.value for node in txt.body if isinstance(node, ast.Expr) and isinstance(node.value, ast.Call) and node.value.func.id == 'setup' for keyword in node.value.keywords if keyword.arg == 'version'][0]);")
+DOC_DIR ?= $(BASE_DIR)docs/$(PROJECT_VERSION)/
 
 help: ## Display this help.
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n\nTargets:\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
@@ -19,6 +20,7 @@ doc: $(DOC_VENV)bin/sphinx-build $(DOC_BUILD_DIR)conf.py $(DOC_BUILD_DIR)index.r
 	. $(DOC_VENV)bin/activate && \
 	sphinx-apidoc -M -f -o $(DOC_BUILD_DIR) $(PACKAGE_NAME) && \
 	sphinx-build -a $(DOC_BUILD_DIR) $(DOC_DIR)
+	rm -rf $(DOC_DIR).buildinfo $(DOC_DIR).doctrees
 
 clean: clean_test clean_doc ## Delete unnecessary files.
 
@@ -36,14 +38,12 @@ $(TEST_VENV)bin/pytest: $(PYENV_FILE)
 	pip install -e .[test]
 
 $(DOC_BUILD_DIR)conf.py:
-	cd $(BASE_DIR) && \
 	mkdir -p $(DOC_BUILD_DIR) && \
-	cp config/conf.py $(DOC_BUILD_DIR)conf.py
+	cp $(BASE_DIR)config/conf.py $(DOC_BUILD_DIR)conf.py
 
 $(DOC_BUILD_DIR)index.rst:
-	cd $(BASE_DIR) && \
 	mkdir -p $(DOC_BUILD_DIR) && \
-	cp config/index.rst $(DOC_BUILD_DIR)index.rst
+	cp $(BASE_DIR)config/index.rst $(DOC_BUILD_DIR)index.rst
 
 $(DOC_VENV)bin/sphinx-build: $(PYENV_FILE)
 	cd $(BASE_DIR) && \
