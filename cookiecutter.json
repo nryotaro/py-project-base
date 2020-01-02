@@ -1,5 +1,5 @@
 {
     "project_name": "Project name",
-    "python_version": "The verision of Python to use in development."
+    "python_version": "The verision of Python to use in development.",
     "author": "The author of this project."
 }
