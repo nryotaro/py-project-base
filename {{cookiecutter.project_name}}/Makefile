@@ -82,6 +82,6 @@ $(PYENV_FILE):
 
 $(BASE_DIR)docs/.nojekyll:
 	mkdir -p $(BASE_DIR)docs
-	$(BASE_DIR)docs/.nojekyll
+	touch $(BASE_DIR)docs/.nojekyll
 
 .PHONY: help doc clean clean_test  clean_doc
