@@ -2,6 +2,8 @@
 *~
 .#*
 \#*
+# vim
+.vim
 # Mac
 .DS_Store
 # Python
